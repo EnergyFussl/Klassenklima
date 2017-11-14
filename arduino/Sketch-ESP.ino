@@ -164,22 +164,11 @@ void loop() {
   client.println("<!DOCTYPE HTML>");
   client.println("<html>");
 
-  client.print("CO2-Sensordata: ");
+  client.print("CO2-Wert: ");
 
   client.print(percentage);
+  client.print("ppm");
   
-/*
-  if (value == LOW) {
-    client.print("On");
-  } else {
-    client.print("Off");
-  }
-  client.println("<br><br>");
-  client.println("Click <a href=\"/LED=ON\">here</a> turn the LED on pin 2 ON<br>");
-  client.println("Click <a href=\"/LED=OFF\">here</a> turn the LED on pin 2 OFF<br>");
-  client.println("</html>");
-*/
-
   delay(1);
   Serial.println("Client disconnected");
   Serial.println("");
@@ -198,7 +187,7 @@ float MGRead(int mg_pin)
     delay(READ_SAMPLE_INTERVAL);
   }
   v = (v / READ_SAMPLE_TIMES) * 5 / 1024 ;
-  v = v - 0.30;
+  v = v + 0.1;
   return v;
 }
 

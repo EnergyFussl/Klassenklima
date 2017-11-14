@@ -77,7 +77,7 @@ float MGRead(int mg_pin)
         delay(READ_SAMPLE_INTERVAL);
     }
     v = (v/READ_SAMPLE_TIMES) *5/1024 ;
-    v = v-0.30; 
+    v = v+0.1;
     return v;
 }
  
