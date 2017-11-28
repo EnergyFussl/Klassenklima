@@ -10,7 +10,7 @@ def gettempsql():
    for row in result_set:
       return row['temp']
 
-def gethumpsql():
+def gethumsql():
    connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
    cur = connection.cursor()
    str="SELECT (hum) FROM klima WHERE datum=curdate() ORDER BY Zeit DESC LIMIT 1"
