@@ -4,35 +4,25 @@
     <title>Page Title</title>
 </head>
 <body>
-    <script type="text/javascript" language="JavaScript">
-        var refresh = 5;
-        var imageURL = "temp.svg";
-        var imageURL1 = "1.svg";
-        function ImgRetry() {
-        setTimeout("ImgLoad()", refresh*1000);
-        }
-        function ImgLoad(){
-        if (imageURL == "") imageURL = document.images.hw18.src;
-        var timestamp = new Date();
-        timestamp = "?" + timestamp.getTime();
-        document.images.hw18.onload = "temp.svg";
-        document.images.hw18.src = imageURL + timestamp;
-        }
-        setTimeout("ImgLoad()", refresh*1000);
-        function ImgLoad() {
-        if (imageURL == "") imageURL = document.images.hw18.src;
-        if (imageURL == "") imageURL1 = document.images.hw19.src;
-        var timestamp = new Date();
-        timestamp = "?" + timestamp.getTime();
-        document.images.hw18.onload = "temp.svg";
-        document.images.hw19.onload = "1.svg";
-        document.images.hw18.src = imageURL + timestamp;
-        document.images.hw19.src = imageURL1 + timestamp;
-        setTimeout("ImgLoad()", refresh*1000);
-        }
-    </script>
-    <img name="hw18" src="temp.svg" onload="ImgLoad()" onerror="ImgRetry()" width="50%" height="50%" alt="Klassenkima" />
-    <img name="hw19" src="1.svg" onload="ImgLoad()" onerror="ImgRetry()" width="50%" height="50%" alt="Klassenkima" />
+        <object data="TempHalfGauge.svg" type="image/svg+xml" width="33%" height="50%">
+            <img src="TempHalfGauge.svg" />
+          </object>
+          <body>
+          <object data="HumHalfGauge.svg" type="image/svg+xml"  width="33%" height="25%">
+            <img src="HumHalfGauge.svg" />
+          </object>
+          <object data="LuxHalfGauge.svg" type="image/svg+xml" width="33%" height="50%">
+            <img src="LuxHalfGauge.svg" />
+          </object>
+          <body>
+          <object data="BarHalfGauge.svg" type="image/svg+xml"  width="33%" height="25%">
+            <img src="BarHalfGauge.svg" />
+          </object>
+          <body>
+        <object data="BatHalfGauge.svg" type="image/svg+xml"  width="33%" height="25%">
+            <img src="BatHalfGauge.svg" />
+        </object>
+    
 </body>
 </html>
 
