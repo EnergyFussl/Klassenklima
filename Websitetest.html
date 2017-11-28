@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+</head>
+<body>
+    <script type="text/javascript" language="JavaScript">
+        var refresh = 5;
+        var imageURL = "temp.svg";
+        var imageURL1 = "1.svg";
+        function ImgRetry() {
+        setTimeout("ImgLoad()", refresh*1000);
+        }
+        function ImgLoad(){
+        if (imageURL == "") imageURL = document.images.hw18.src;
+        var timestamp = new Date();
+        timestamp = "?" + timestamp.getTime();
+        document.images.hw18.onload = "temp.svg";
+        document.images.hw18.src = imageURL + timestamp;
+        }
+        setTimeout("ImgLoad()", refresh*1000);
+        function ImgLoad() {
+        if (imageURL == "") imageURL = document.images.hw18.src;
+        if (imageURL == "") imageURL1 = document.images.hw19.src;
+        var timestamp = new Date();
+        timestamp = "?" + timestamp.getTime();
+        document.images.hw18.onload = "temp.svg";
+        document.images.hw19.onload = "1.svg";
+        document.images.hw18.src = imageURL + timestamp;
+        document.images.hw19.src = imageURL1 + timestamp;
+        setTimeout("ImgLoad()", refresh*1000);
+        }
+    </script>
+    <img name="hw18" src="temp.svg" onload="ImgLoad()" onerror="ImgRetry()" width="50%" height="50%" alt="Klassenkima" />
+    <img name="hw19" src="1.svg" onload="ImgLoad()" onerror="ImgRetry()" width="50%" height="50%" alt="Klassenkima" />
+</body>
+</html>
+
