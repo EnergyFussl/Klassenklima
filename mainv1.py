@@ -1,7 +1,86 @@
 import pygal
 import shlex
 import subprocess
+import pymysql
+import time 
 from pygal.style import LightenStyle
+
+def gettempsql():
+   connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
+   cur = connection.cursor()
+   str="SELECT (temp) FROM klima WHERE datum=curdate() ORDER BY Zeit DESC LIMIT 1"
+   cur.execute(str)
+   print(cur.description)
+   result_set = cur.fetchall()
+   for row in result_set:
+       temp=row['temp']
+       return round(temp,1)
+       
+
+def gethumsql():
+   connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
+   cur = connection.cursor()
+   str="SELECT (hum) FROM klima WHERE datum=curdate() ORDER BY Zeit DESC LIMIT 1"
+   cur.execute(str)
+   print(cur.description)
+   result_set = cur.fetchall()
+   for row in result_set:
+      cur.close()
+      connection.close()
+      hum=row['hum']
+      return round(hum)
+
+def getbarsql():
+   connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
+   cur = connection.cursor()
+   str="SELECT (bar) FROM klima WHERE datum=curdate() ORDER BY Zeit DESC LIMIT 1"
+   cur.execute(str)
+   print(cur.description)
+   result_set = cur.fetchall()
+   for row in result_set:
+      cur.close()
+      connection.close()
+      bar=row['bar']
+      return round(bar)
+
+def getluxsql():
+   connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
+   cur = connection.cursor()
+   str="SELECT (lux) FROM klima WHERE datum=curdate() ORDER BY Zeit DESC LIMIT 1"
+   cur.execute(str)
+   print(cur.description)
+   result_set = cur.fetchall()
+   for row in result_set: 
+      cur.close()
+      connection.close()
+      lux=row['lux']
+      return round(lux)
+
+def getco2sql():
+   connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
+   cur = connection.cursor()
+   str="SELECT (co2) FROM klima WHERE datum=curdate() ORDER BY Zeit DESC LIMIT 1"
+   cur.execute(str)
+   print(cur.description)
+   result_set = cur.fetchall()
+   for row in result_set:
+      cur.close()
+      connection.close()
+      co2=row['co2']
+      return  round(co2)
+
+def getbtysql():
+   connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
+   cur = connection.cursor()
+   str="SELECT (bty) FROM klima WHERE datum=curdate() ORDER BY Zeit DESC LIMIT 1"
+   cur.execute(str)
+   print(cur.description)
+   result_set = cur.fetchall()
+   for row in result_set:
+      cur.close()
+      connection.close()
+      return row['bty']
+      
 
 farbe='#000000'
 grad=-1
@@ -45,7 +124,7 @@ farbe=['#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000f
      '#07f800', '#07f800', '#07f800', '#07f800', '#07f800', '#07f800', '#07f800',
      '#08f700', '#08f700', '#08f700', '#08f700', '#08f700', '#08f700', '#08f700',
      '#09f600', '#09f600', '#09f600', '#09f600', '#09f600', '#09f600', '#09f600',
-     '#0af500', '#0af500', '#0af500', '#0af500', '#0af500', '#0af500', '#0af500',
+     '#0af500', '#0af500', 'drawTemp()#0af500', '#0af500', '#0af500', '#0af500', '#0af500',
      '#0bf400', '#0bf400', '#0bf400', '#0bf400', '#0bf400', '#0bf400', '#0bf400',
      '#0cf300', '#0cf300', '#0cf300', '#0cf300', '#0cf300', '#0cf300', '#0cf300',
      '#0df200', '#0df200', '#0df200', '#0df200', '#0df200', '#0df200', '#0df200',
@@ -67,8 +146,6 @@ farbe=['#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000f
      '#ef1000', '#ef1000', '#ef1000', '#ef1000', '#ef1000', '#ef1000', '#ef1000',
      '#ff0000', '#ff0000', '#ff0000', '#ff0000', '#ff0000', '#ff0000', '#ff0000',
      ]
-
-
 
 grad=-1
 farbehum=['#0000ff', '#0000ff',
@@ -197,12 +274,8 @@ farbebat=['#00ff00', '#00ff00',
           '#ff0000', '#ff0000',
           ]
 
-
-
-
-
 def drawTemp():
-    x=34
+    x=gettempsql()
     tempfarb='#000000'
 
     for i in range(0, 421, 1):
@@ -215,9 +288,10 @@ def drawTemp():
     gauge.value_formatter = grad_formatter
     gauge.add('Temperatur', [{'value': x, 'max_value': 42}])
     gauge.render_to_file('TempHalfGauge.svg')
+ 
 
 def drawHumidity():
-    x=50
+    x=gethumsql()
     tempfarb='#000000'
 
     for i in range(0, 101, 1):
@@ -232,7 +306,7 @@ def drawHumidity():
     gauge.render_to_file('HumHalfGauge.svg')
 
 def drawBar():
-    x=1490
+    x=getbarsql()
     tempfarb='#000000'
     z=-1
 
@@ -250,7 +324,7 @@ def drawBar():
     gauge.render_to_file('BarHalfGauge.svg')
 
 def drawLux():
-    x=1490
+    x=getluxsql()
     tempfarb='#000000'
     z=-1
 
@@ -268,7 +342,7 @@ def drawLux():
     gauge.render_to_file('LuxHalfGauge.svg')
 
 def drawBat():
-    x=90
+    x=getbtysql()
     wert=100-x
     tempfarb='#000000'
 
@@ -283,10 +357,12 @@ def drawBat():
     gauge.add('Batterie', [{'value': x, 'max_value': 100}])
     gauge.render_to_file('BatHalfGauge.svg')
 
-
-drawTemp()
-drawHumidity()
-drawBar()
-drawLux()
-drawBat()
+while 1:
+    drawTemp()
+    drawHumidity()
+    drawBar()
+    drawLux()
+    drawBat()
+    time.sleep(15)
+    
 
