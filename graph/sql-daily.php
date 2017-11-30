@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "lfrie_sensoren";
-$password = "dIea?163";
-$dbname = "lfriedl_sensoren";
+$username = "sensoren";
+$password = "klassenklima";
+$dbname = "sensoren";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
