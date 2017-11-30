@@ -1,9 +1,19 @@
 import pygal
+from PIL import Image
+import cairosvg
 import shlex
 import subprocess
 import pymysql
+
 import time 
 from pygal.style import LightenStyle
+
+def crop(pfad):
+  img = Image.open(pfad+".png")
+  img.show()
+  box = (150, 180, 670, 470)
+  img_region = img.crop(box)
+  img_region.save(pfad+"Crop.png")
 
 def gettempsql():
    connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
@@ -16,7 +26,6 @@ def gettempsql():
        temp=row['temp']
        return round(temp,1)
        
-
 def gethumsql():
    connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
    cur = connection.cursor()
@@ -124,7 +133,7 @@ farbe=['#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000ff', '#0000f
      '#07f800', '#07f800', '#07f800', '#07f800', '#07f800', '#07f800', '#07f800',
      '#08f700', '#08f700', '#08f700', '#08f700', '#08f700', '#08f700', '#08f700',
      '#09f600', '#09f600', '#09f600', '#09f600', '#09f600', '#09f600', '#09f600',
-     '#0af500', '#0af500', 'drawTemp()#0af500', '#0af500', '#0af500', '#0af500', '#0af500',
+     '#0af500', '#0af500', '#0af500', '#0af500', '#0af500', '#0af500', '#0af500',
      '#0bf400', '#0bf400', '#0bf400', '#0bf400', '#0bf400', '#0bf400', '#0bf400',
      '#0cf300', '#0cf300', '#0cf300', '#0cf300', '#0cf300', '#0cf300', '#0cf300',
      '#0df200', '#0df200', '#0df200', '#0df200', '#0df200', '#0df200', '#0df200',
@@ -283,11 +292,11 @@ def drawTemp():
             tempfarb=farbe[i]
 
     dark_lighten_style = LightenStyle(tempfarb)
-    gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.70, style=dark_lighten_style)
+    gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
     grad_formatter = lambda x: '{:.10g}C'.format(x)
     gauge.value_formatter = grad_formatter
-    gauge.add('Temperatur', [{'value': x, 'max_value': 42}])
-    gauge.render_to_file('TempHalfGauge.svg')
+    gauge.add('', [{'value': x, 'max_value': 42}])
+    gauge.render_to_png('TempHalfGauge.png')
  
 
 def drawHumidity():
@@ -299,11 +308,11 @@ def drawHumidity():
             tempfarb=farbehum[i]
 
     dark_lighten_style = LightenStyle(tempfarb)
-    gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.70, style=dark_lighten_style)
+    gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
     percent_formatter = lambda x: '{:.10g}%'.format(x)
     gauge.value_formatter = percent_formatter
-    gauge.add('Luftfeuchtigkiet', [{'value': x, 'max_value': 100}])
-    gauge.render_to_file('HumHalfGauge.svg')
+    gauge.add('', [{'value': x, 'max_value': 100}])
+    gauge.render_to_png('HumHalfGauge.png')
 
 def drawBar():
     x=getbarsql()
@@ -317,11 +326,11 @@ def drawBar():
                 tempfarb=farbehum[z]
 
     dark_lighten_style = LightenStyle(tempfarb)
-    gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.70, style=dark_lighten_style)
+    gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
     percent_formatter = lambda x: '{:.10g} mBar'.format(x)
     gauge.value_formatter = percent_formatter
-    gauge.add('Druck', [{'value': x, 'max_value': 1500}])
-    gauge.render_to_file('BarHalfGauge.svg')
+    gauge.add('', [{'value': x, 'max_value': 1500}])
+    gauge.render_to_png('BarHalfGauge.png')
 
 def drawLux():
     x=getluxsql()
@@ -335,11 +344,11 @@ def drawLux():
                 tempfarb=farbehum[z]
 
     dark_lighten_style = LightenStyle(tempfarb)
-    gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.70, style=dark_lighten_style)
+    gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
     percent_formatter = lambda x: '{:.10g} lux'.format(x)
     gauge.value_formatter = percent_formatter
-    gauge.add('Beleuchtung', [{'value': x, 'max_value': 2000}])
-    gauge.render_to_file('LuxHalfGauge.svg')
+    gauge.add('',[{'value': x, 'max_value': 2000}])
+    gauge.render_to_png('LuxHalfGauge.png')
 
 def drawBat():
     x=getbtysql()
@@ -351,18 +360,23 @@ def drawBat():
         tempfarb=farbebat[wert]
 
     dark_lighten_style = LightenStyle(tempfarb)
-    gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.70, style=dark_lighten_style)
-    percent_formatter = lambda x: '{:.10g} %'.format(x)
+    gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
+    percent_formatter = lambda x: '{:.10g} % Akku'.format(x)
     gauge.value_formatter = percent_formatter
-    gauge.add('Batterie', [{'value': x, 'max_value': 100}])
-    gauge.render_to_file('BatHalfGauge.svg')
-
+    gauge.add('', [{'value': x, 'max_value': 100}])
+    gauge.render_to_png('BatHalfGauge.png')
+    
 while 1:
     drawTemp()
     drawHumidity()
     drawBar()
     drawLux()
     drawBat()
+    crop("TempHalfGauge")
+    crop("BarHalfGauge")
+    crop("HumHalfGauge")
+    crop("LuxHalfGauge")
+    crop("BatHalfGauge")
     time.sleep(15)
-    
+
 

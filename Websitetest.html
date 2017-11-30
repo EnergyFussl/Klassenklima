@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+
+	<script type="text/javascript" language="JavaScript">
+
+	function show_image(src, width, height, alt) {
+	    var img = document.createElement("img");
+	    img.src = src;
+	    img.width = width;
+	    img.height = height;
+	    img.alt = alt;
+
+		document.body.appendChild(img);
+	}
+	</script>
+</head>
+<body>
+    
+	<script type="text/javascript" language="JavaScript">
+	
+	setInterval(show_image("LuxHalfGauge.svg",1200,800,"Klassenklima"),1000);
+	
+	
+
+       
+    </script>
+    
+</body>
+
+</html>

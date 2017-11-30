@@ -32,7 +32,7 @@ def gettemp():
 			i=i+3
 		if i>10:
 			print("TI is not or badly connected")
-			return-1
+			return-275
 def gethum():
         i=0
         while 1:
@@ -164,9 +164,12 @@ while 1:
    lux=getlux()
    co2=500
    byt=getbty()
-   arg="INSERT INTO klima VALUES(null, "+str(temp)+", "+str(hum)+", "+str(bar)+", "+str(lux)+", "+str(co2)+", "+str(byt)+", "+"CURDATE()"+", "+"DATE_ADD(CURTIME(), INTERVAL 1 HOUR))"
-   print(arg)
-   cur.execute(arg)
+   if(temp>-275 and hum>-1 and bar>800 and lux>-1 and byt>-1):
+      arg="INSERT INTO klima VALUES(null, "+str(temp)+", "+str(hum)+", "+str(bar)+", "+str(lux)+", "+str(co2)+", "+str(byt)+", "+"CURDATE()"+", "+"DATE_ADD(CURTIME(), INTERVAL 1 HOUR))"
+      print(arg)
+      cur.execute(arg)
+   else:
+      print("invalide Value from Ti")
    time.sleep(10)
 
 cur.close()
