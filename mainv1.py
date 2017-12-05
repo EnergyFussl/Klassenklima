@@ -8,6 +8,13 @@ import pymysql
 import time 
 from pygal.style import LightenStyle
 
+
+temp_max=42
+hum_max=100
+bat_max=100
+bar_max=1500
+lux_max=2000
+
 def crop(pfad):
   img = Image.open(pfad+".png")
   img.show()
@@ -295,7 +302,7 @@ def drawTemp():
     gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
     grad_formatter = lambda x: '{:.10g}C'.format(x)
     gauge.value_formatter = grad_formatter
-    gauge.add('', [{'value': x, 'max_value': 42}])
+    gauge.add('', [{'value': x, 'max_value': temp_max}])
     gauge.render_to_png('TempHalfGauge.png')
  
 
@@ -311,7 +318,7 @@ def drawHumidity():
     gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
     percent_formatter = lambda x: '{:.10g}%'.format(x)
     gauge.value_formatter = percent_formatter
-    gauge.add('', [{'value': x, 'max_value': 100}])
+    gauge.add('', [{'value': x, 'max_value': hum_max}])
     gauge.render_to_png('HumHalfGauge.png')
 
 def drawBar():
@@ -329,7 +336,7 @@ def drawBar():
     gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
     percent_formatter = lambda x: '{:.10g} mBar'.format(x)
     gauge.value_formatter = percent_formatter
-    gauge.add('', [{'value': x, 'max_value': 1500}])
+    gauge.add('', [{'value': x, 'max_value': bar_max}])
     gauge.render_to_png('BarHalfGauge.png')
 
 def drawLux():
@@ -347,7 +354,7 @@ def drawLux():
     gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
     percent_formatter = lambda x: '{:.10g} lux'.format(x)
     gauge.value_formatter = percent_formatter
-    gauge.add('',[{'value': x, 'max_value': 2000}])
+    gauge.add('',[{'value': x, 'max_value': lux_max}])
     gauge.render_to_png('LuxHalfGauge.png')
 
 def drawBat():
@@ -363,7 +370,7 @@ def drawBat():
     gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
     percent_formatter = lambda x: '{:.10g} % Akku'.format(x)
     gauge.value_formatter = percent_formatter
-    gauge.add('', [{'value': x, 'max_value': 100}])
+    gauge.add('', [{'value': x, 'max_value': bat_max}])
     gauge.render_to_png('BatHalfGauge.png')
     
 while 1:
@@ -378,5 +385,3 @@ while 1:
     crop("LuxHalfGauge")
     crop("BatHalfGauge")
     time.sleep(15)
-
-
