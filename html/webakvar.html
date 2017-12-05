@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+    <meta http-equiv="expires" content="0"> 
+    <meta http-equiv="pragma" content="no-cache"> 
+    <meta http-equiv="refresh" content="60">
+</head>
+<body>
+    <center> <h1 style="font-size:40pt;">Klassenklima</h1></center>
+    <center> <h1 style="font-size:30pt;">Temperatur:</h1></center>
+    <a href="https://energyfussl.at/graph/2/"> <img id="temp"src="/png/TempHalfGaugeCrop.png" height="100%" width="100%">
+    <center> <h1 style="font-size:30pt;">Luftfeuchtigkeit:</h1></center>
+    <a href="https://energyfussl.at/graph/2/"><img id="hum" src="/png/HumHalfGaugeCrop.png" height="100%" width="100%">
+    <center> <h1 style="font-size:30pt;">Helligkeit:</h1></center>
+    <a href="https://energyfussl.at/graph/2/"><img id="bat" src="/png/LuxHalfGaugeCrop.png" height="100%" width="100%">
+    <center> <h1 style="font-size:30pt;">Lufdruck:</h1></center>
+    <a href="https://energyfussl.at/graph/2/"><img id="bar" src="/png/BarHalfGaugeCrop.png" height="100%" width="100%">
+    <center> <h1 style="font-size:30pt;">Batterie:</h1></center>
+    <a href="https://energyfussl.at/graph/2/"><img id="lux" src="/png/BatHalfGaugeCrop.png" height="100%" width="100%">
+        
+    <script type="text/javascript">
+    var myVar = setInterval(function() {
+        console.log("xyz")
+        document.getElementById("temp").src="/png/TempHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("hum").src="/png/HumHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("bat").src="/png/LuxHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("bar").src="/png/BarHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("lux").src="/png/BatHalfGaugeCrop.png?" + new Date().getTime();
+    }, 2000);
+       
+        
+    </script>
+</body>
+</html>

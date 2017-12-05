@@ -1,0 +1,142 @@
+<html>
+   <head>
+      <title>Temperature Charts</title>
+      <script src = "js/jquery.min.js"></script>
+      <script src = "js/highcharts.js"></script>  
+   </head>
+   	  
+	<div id = "container-daily" style = "width: 100%; height: 400px; margin: 0 auto"></div>
+      <script type="text/javascript">
+         $(document).ready(function() {   
+		    
+			 $.post('sql-daily.php', {x:123, y:'abcdef', z:4}, 
+				function(data) {
+				  var json = data;			  
+			  
+			  console.log(json);
+			
+			var parsed = JSON.parse(json);
+
+			var arr = [];
+
+			for(var x in parsed){
+			  arr.push(parsed[x]);
+			}
+
+			var temperatur = [parseFloat(arr[0].Temperatur),parseFloat(arr[1].Temperatur),parseFloat(arr[2].Temperatur),parseFloat(arr[3].Temperatur),parseFloat(arr[4].Temperatur),parseFloat(arr[5].Temperatur),parseFloat(arr[6].Temperatur),parseFloat(arr[7].Temperatur),parseFloat(arr[8].Temperatur),parseFloat(arr[9].Temperatur),parseFloat(arr[10].Temperatur),parseFloat(arr[11].Temperatur)];
+			console.log(temperatur)
+			
+			var month = [arr[0].Tag,arr[1].Tag,arr[2].Tag,arr[3].Tag,arr[4].Tag,arr[5].Tag,arr[6].Tag,arr[7].Tag,arr[8].Tag,arr[9].Tag,arr[10].Tag,arr[11].Tag];
+			console.log(month)
+			
+			var title = {
+               text: 'Daily Average Temperature'   
+            };
+            var subtitle = {
+               text: 'TI SimpleLink CC2650'
+            };
+			
+            var xAxis = {
+               categories: month
+            };
+            var yAxis = {
+               title: {
+                  text: 'Temperatur (\xB0C)'
+               }
+            };
+            var plotOptions = {
+               line: {
+                  dataLabels: {
+                     enabled: true
+                  },
+                  enableMouseTracking: false
+               }
+            };
+
+			var series = [{
+                  name: 'Temperatur Sensor',
+                  data: temperatur
+               }
+            ];
+   
+            var json = {};
+            json.title = title;
+            json.subtitle = subtitle;
+            json.xAxis = xAxis;
+            json.yAxis = yAxis;  
+            json.series = series;
+            json.plotOptions = plotOptions;
+            $('#container-daily').highcharts(json); 
+			});
+         });
+      </script>
+	  
+	  
+	  <body>
+      <div id = "container" style = "width: 100%; height: 400px; margin: 0 auto"></div>
+      <script type="text/javascript">
+         $(document).ready(function() {   
+		    
+			 $.post('sql-month.php', {x:123, y:'abcdef', z:4}, 
+				function(data) {
+				  var json = data;			  
+			  
+			console.log(json);
+			
+			var parsed = JSON.parse(json);
+
+			var arr = [];
+
+			for(var x in parsed){
+			  arr.push(parsed[x]);
+			}
+
+			var temperatur = [parseFloat(arr[0].Temperatur),parseFloat(arr[1].Temperatur),parseFloat(arr[2].Temperatur),parseFloat(arr[3].Temperatur),parseFloat(arr[4].Temperatur),parseFloat(arr[5].Temperatur),parseFloat(arr[6].Temperatur),parseFloat(arr[7].Temperatur),parseFloat(arr[8].Temperatur),parseFloat(arr[9].Temperatur),parseFloat(arr[10].Temperatur),parseFloat(arr[11].Temperatur)];
+			console.log(temperatur)
+			
+			var month = [arr[0].Monat,arr[1].Monat,arr[2].Monat,arr[3].Monat,arr[4].Monat,arr[5].Monat,arr[6].Monat,arr[7].Monat,arr[8].Monat,arr[9].Monat,arr[10].Monat,arr[11].Monat];
+			console.log(month)
+			
+			var title = {
+               text: 'Monthly Average Temperature'   
+            };
+            var subtitle = {
+               text: 'TI SimpleLink CC2650'
+            };
+			
+            var xAxis = {
+               categories: month
+            };
+            var yAxis = {
+               title: {
+                  text: 'Temperatur (\xB0C)'
+               }
+            };
+            var plotOptions = {
+               line: {
+                  dataLabels: {
+                     enabled: true
+                  },
+                  enableMouseTracking: false
+               }
+            };
+
+			var series = [{
+                  name: 'Temperatur Sensor',
+                  data: temperatur
+               }
+            ];
+   
+            var json = {};
+            json.title = title;
+            json.subtitle = subtitle;
+            json.xAxis = xAxis;
+            json.yAxis = yAxis;  
+            json.series = series;
+            json.plotOptions = plotOptions;
+            $('#container').highcharts(json); 
+			});
+         });
+      </script>
+	  </body>  
+</html>

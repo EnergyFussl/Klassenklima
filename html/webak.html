@@ -21,7 +21,7 @@
     m = checkTime(m);
     s = checkTime(s);
 	mo=mo+1;
-	d=d+26;
+	d=1;
     mo = checkTime(mo);
     d = checkTime(d);
     document.getElementById('txt').innerHTML =
@@ -39,25 +39,25 @@
 </head>
 <body onload="startTime()">
 
-    <img id="temp"src="TempHalfGaugeCrop.png" height="40%" width="48%">
-    <img id="hum" src="HumHalfGaugeCrop.png" height="40%" width="48%">
-    <img id="bat" src="BatHalfGaugeCrop.png" height="40%" width="48%">
+    <img id="temp"src="/png/TempHalfGaugeCrop.png" height="40%" width="48%">
+    <img id="hum" src="/png/HumHalfGaugeCrop.png" height="40%" width="48%">
+    <img id="bat" src="/png/BatHalfGaugeCrop.png" height="40%" width="48%">
  <div id="txt">
     </div>
     <div  id="txt2">
     </div>
 
-    <img id="bar" src="BarHalfGaugeCrop.png" height="40%" width="48%">
-    <img id="lux" src="LuxHalfGaugeCrop.png" height="40%" width="48%">
+    <img id="bar" src="/png/BarHalfGaugeCrop.png" height="40%" width="48%">
+    <img id="lux" src="/png/LuxHalfGaugeCrop.png" height="40%" width="48%">
 
     <script type="text/javascript">
     var myVar = setInterval(function() {
         console.log("xyz")
-        document.getElementById("temp").src="TempHalfGaugeCrop.png?" + new Date().getTime();
-        document.getElementById("hum").src="HumHalfGaugeCrop.png?" + new Date().getTime();
-        document.getElementById("bat").src="BatHalfGaugeCrop.png?" + new Date().getTime();
-        document.getElementById("bar").src="BarHalfGaugeCrop.png?" + new Date().getTime();
-        document.getElementById("lux").src="LuxHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("temp").src="/png/TempHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("hum").src="/png/HumHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("bat").src="/png/BatHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("bar").src="/png/BarHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("lux").src="/png/LuxHalfGaugeCrop.png?" + new Date().getTime();
     }, 2000);
        
         
