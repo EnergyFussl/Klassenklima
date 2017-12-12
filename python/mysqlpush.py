@@ -1,6 +1,8 @@
 import pymysql
 import shlex
 import subprocess
+import urllib.request
+import urllib.parse
 import time 
 def gettemp():
 	i=0
@@ -157,14 +159,26 @@ def getbty():
 connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor,autocommit=True)
 cur = connection.cursor()
 
+
+def getco2():
+  url = 'http://192.168.137.80'
+  try:
+    f = urllib.request.urlopen(url)
+    arr=(f.read().decode('utf-8'))
+    waste,arr=arr.split("<html>")
+    print(arr)
+    return arr
+  except:
+    print("error: no connecion to sensor")
+
 while 1:
    temp=gettemp()
    hum=gethum()
    bar=getbar()
    lux=getlux()
-   co2=500
+   co2=int(getco2())
    byt=getbty()
-   if(temp>-275 and hum>-1 and bar>800 and lux>-1 and byt>-1):
+   if(temp>-275 and hum>-1 and bar>800 and lux>-1 and byt>-1 and co2>-1):
       arg="INSERT INTO klima VALUES(null, "+str(temp)+", "+str(hum)+", "+str(bar)+", "+str(lux)+", "+str(co2)+", "+str(byt)+", "+"CURDATE()"+", "+"DATE_ADD(CURTIME(), INTERVAL 1 HOUR))"
       print(arg)
       cur.execute(arg)

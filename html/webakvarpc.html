@@ -18,7 +18,7 @@
         <tr>
           <td><a href="https://energyfussl.at/graph/2/"><img id="temp"src="/png/TempHalfGaugeCrop.png" height="100%" width="100%"></td>
           <td><a href="https://energyfussl.at/graph/2/"><img id="hum" src="/png/HumHalfGaugeCrop.png" height="100%" width="100%"></td>
-          <td><a href="https://energyfussl.at/graph/2/"><img id="bat" src="/png/LuxHalfGaugeCrop.png" height="100%" width="100%"></td>
+          <td><a href="https://energyfussl.at/graph/2/"><img id="lux" src="/png/LuxHalfGaugeCrop.png" height="100%" width="100%"></td>
         </tr>
         <tr>
           <th><center> <h1 style="font-size:30pt;">Lufdruck:</h1></center></th>
@@ -27,8 +27,8 @@
         </tr>
         <tr>
           <td><a href="https://energyfussl.at/graph/2/"><img id="bar" src="/png/BarHalfGaugeCrop.png" height="100%" width="100%"></td>
-          <td><a href="https://energyfussl.at/graph/2/"><img id="lux" src="/png/BatHalfGaugeCrop.png" height="100%" width="100%"></td>
-          <td><a href="https://energyfussl.at/graph/2/"><img id="lux" src="/png/BatHalfGaugeCrop.png" height="100%" width="100%"></td>
+          <td><a href="https://energyfussl.at/graph/2/"><img id="bat" src="/png/BatHalfGaugeCrop.png" height="100%" width="100%"></td>
+          <td><a href="https://energyfussl.at/graph/2/"><img id="co2" src="/png/Co2HalfGaugeCrop.png" height="100%" width="100%"></td>
         </tr>
       </table>
     <script type="text/javascript">
@@ -36,9 +36,10 @@
         console.log("xyz")
         document.getElementById("temp").src="/png/TempHalfGaugeCrop.png?" + new Date().getTime();
         document.getElementById("hum").src="/png/HumHalfGaugeCrop.png?" + new Date().getTime();
-        document.getElementById("bat").src="/png/LuxHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("lux").src="/png/LuxHalfGaugeCrop.png?" + new Date().getTime();
         document.getElementById("bar").src="/png/BarHalfGaugeCrop.png?" + new Date().getTime();
-        document.getElementById("lux").src="/png/BatHalfGaugeCrop.png?" + new Date().getTime();
+	document.getElementById("bat").src="/png/BatHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("co2").src="/png/Co2HalfGaugeCrop.png?" + new Date().getTime();
     }, 2000);
 
 

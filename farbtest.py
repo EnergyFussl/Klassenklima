@@ -312,13 +312,29 @@ farbebat=['#00ff00', '#00ff00',
 
 def drawTemp():
     x=gettempsql()
-    tempfarb='#000000'
-    x1=(temp_max*10)+1
-    for i in range(0, x1, 1):
-        if(i == (x*10)):
-            tempfarb=farbe[i]
-
-    dark_lighten_style = LightenStyle(tempfarb)
+    tempfarbs=[255,0,0]
+    tempfarbe=[0,255,0]
+    tempfarbr=[0, 0, 0]
+    x1=int((x/temp_max)*100)
+    for i in range(0,3,1):
+        tempfarbr[i]=int(tempfarbs[i]+((tempfarbe[i]-tempfarbs[i])*(x1/100)))
+        #tempfarbr[i]=round(tempfarbr[i],0)
+        #tempfarbr[i]=(int)tempfarbr[i]
+        print(tempfarbr[i])
+    
+    
+    c=tempfarbr[0]
+    for i in range(1,3,1):
+        c=c<<8
+        c+=tempfarbr[i]
+    
+    print(c)
+    hexstring=hex(c)
+    print(hexstring)
+    splitstring=hexstring.split("x")
+    print(splitstring[1])
+    farbe="#"+farbe
+    dark_lighten_style = LightenStyle(farbe)
     gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
     grad_formatter = lambda x: '{:.10g}C'.format(x)
     gauge.value_formatter = grad_formatter
@@ -390,6 +406,9 @@ def drawBat():
     gauge.value_formatter = percent_formatter
     gauge.add('', [{'value': x, 'max_value': bat_max}])
     gauge.render_to_png('/home/pi/Klassenklima/png/BatHalfGauge.png')
+
+def rgb_int2tuple(rint,gint,bint):
+    return (rint // 256 // 256 % 256, gint // 256 % 256, bint % 256)
     
 while 1:
     drawTemp()
