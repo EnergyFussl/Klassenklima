@@ -1,10 +1,10 @@
-import xml.dom.minidom as dom
-
-#print "Content-type: text/plain\n\n"
-
-baum = dom.parse("config.xml")
-
-for eintrag in baum.firstChild.childNodes:
-    if eintrag.nodeName == "config_temp_gauge":
-        for knoten in eintrag.childNodes:
-                print (knoten.firstChild.data.strip())
+fobj = open("config.txt", "r")
+i=-1
+read=[0,0,0,0,0,0]
+for line in fobj:
+   if i>-1:
+      line.rstrip()
+      waste,read[i]=line.split("=")
+      print(read[i])
+   i+=1
+fobj.close()

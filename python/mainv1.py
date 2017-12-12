@@ -8,12 +8,26 @@ import pymysql
 import time 
 from pygal.style import LightenStyle
 
+fobj = open("config.txt", "r")
+i=-1
+read=[0,0,0,0,0,0]
+for line in fobj:
+   if i>-1:
+      line.rstrip()
+      waste,read[i]=line.split("=")
+   i+=1
+fobj.close()
 
-temp_max=42
-hum_max=100
-bat_max=100
-bar_max=1500
-lux_max=2000
+
+temp_max=int(read[0])
+hum_max=int(read[3])
+bat_max=int(read[5])
+bar_max=int(read[2])
+lux_max=int(read[1])
+co2_max=int(read[4])
+print(temp_max)
+
+
 
 rot='#ff0000'
 grun='#00ff00'
@@ -312,7 +326,7 @@ def drawTemp():
     grad_formatter = lambda x: '{:.10g}C'.format(x)
     gauge.value_formatter = grad_formatter
     gauge.add('', [{'value': x, 'max_value': temp_max}])
-    gauge.render_to_png('TempHalfGauge.png')
+    gauge.render_to_png('/home/pi/Klassenklima/png/TempHalfGauge.png')
  
 
 def drawHumidity():
@@ -325,7 +339,7 @@ def drawHumidity():
     percent_formatter = lambda x: '{:.10g}%'.format(x)
     gauge.value_formatter = percent_formatter
     gauge.add('', [{'value': x, 'max_value': hum_max}])
-    gauge.render_to_png('HumHalfGauge.png')
+    gauge.render_to_png('/home/pi/Klassenklima/png/HumHalfGauge.png')
 
 def drawBar():
     x=getbarsql()
@@ -345,7 +359,7 @@ def drawBar():
     percent_formatter = lambda x: '{:.10g} mBar'.format(x)
     gauge.value_formatter = percent_formatter
     gauge.add('', [{'value': x, 'max_value': bar_max}])
-    gauge.render_to_png('BarHalfGauge.png')
+    gauge.render_to_png('/home/pi/Klassenklima/png/BarHalfGauge.png')
 
 def drawLux():
     x=getluxsql()
@@ -365,7 +379,7 @@ def drawLux():
     percent_formatter = lambda x: '{:.10g} lux'.format(x)
     gauge.value_formatter = percent_formatter
     gauge.add('',[{'value': x, 'max_value': lux_max}])
-    gauge.render_to_png('LuxHalfGauge.png')
+    gauge.render_to_png('/home/pi/Klassenklima/png/LuxHalfGauge.png')
 
 def drawBat():
     x=getbtysql()
@@ -378,7 +392,7 @@ def drawBat():
     percent_formatter = lambda x: '{:.10g} % Akku'.format(x)
     gauge.value_formatter = percent_formatter
     gauge.add('', [{'value': x, 'max_value': bat_max}])
-    gauge.render_to_png('BatHalfGauge.png')
+    gauge.render_to_png('/home/pi/Klassenklima/png/BatHalfGauge.png')
     
 while 1:
     drawTemp()
@@ -386,9 +400,9 @@ while 1:
     drawBar()
     drawLux()
     drawBat()
-    crop("TempHalfGauge")
-    crop("BarHalfGauge")
-    crop("HumHalfGauge")
-    crop("LuxHalfGauge")
-    crop("BatHalfGauge")
+    crop("/home/pi/Klassenklima/png/TempHalfGauge")
+    crop("/home/pi/Klassenklima/png/BarHalfGauge")
+    crop("/home/pi/Klassenklima/png/HumHalfGauge")
+    crop("/home/pi/Klassenklima/png/LuxHalfGauge")
+    crop("/home/pi/Klassenklima/png/BatHalfGauge")
     time.sleep(15)

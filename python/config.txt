@@ -1,0 +1,7 @@
+config_gaugen:
+temp_gauge=35
+lux_gauge=2000
+bar_gauge=1500
+hum_gauge=100
+co2_gauge=1000
+bat_gauge=100
