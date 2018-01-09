@@ -82,6 +82,9 @@ def crop(pfad):
   img_region = img.crop(box)
   img_region.save(pfad+"Crop.png")
 
+
+def gettemp():
+        i=0
         while 1:
                 cmd="gatttool -b 54:6C:0E:4D:97:85 --char-write-req -a 0x0027 -n 01"
                 args = shlex.split(cmd)
@@ -163,7 +166,7 @@ def getbar():
                         outputgatt=outputgattby.decode("utf-8")
                         trash,raw_bar_byte=outputgatt.split(":")
                         raw_bar_str = (raw_bar_byte.split())
-                        raw_bar_data = int(('0x'+raw_bar_str[5])+(raw_bar_str[4])+raw_bar_str[3],1$
+                        raw_bar_data = int(('0x'+raw_bar_str[5])+(raw_bar_str[4])+raw_bar_str[3],16)
                         bar = raw_bar_data/100.0
                         if bar == 0:
                                 print("warning: no var from Ti")

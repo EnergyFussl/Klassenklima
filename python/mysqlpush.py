@@ -161,7 +161,7 @@ cur = connection.cursor()
 
 
 def getco2():
-  url = 'http://192.168.137.80'
+  url = 'http://10.2.254.22'
   try:
     f = urllib.request.urlopen(url)
     arr=(f.read().decode('utf-8'))
