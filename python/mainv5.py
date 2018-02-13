@@ -455,8 +455,7 @@ def pushtosql():
    print(bar)
    lux=getlux()
    print(lux)
-   #co2=int(getco2())
-   co2=500
+   co2=int(getco2())
    print(co2)
    byt=100
    if(temp>-275 and hum>-1 and bar>800 and lux>-1 and byt>-1 and co2>-1):
