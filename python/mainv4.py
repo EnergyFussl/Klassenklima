@@ -48,10 +48,6 @@ for line in fobj:
           barfarbestart=strtointarr(help[i-7])
        if i-7 == 7:    
           barfarbeende=strtointarr(help[i-7])
-       if i-7 == 8:    
-          batfarbestart=strtointarr(help[i-7])
-       if i-7 == 9:    
-          batfarbeende=strtointarr(help[i-7])
        if i-7 == 10:    
           co2farbestart=strtointarr(help[i-7])
        if i-7 == 11:    
@@ -61,7 +57,6 @@ fobj.close()
 
 temp_max=int(read[0])
 hum_max=int(read[3])
-bat_max=int(read[5])
 bar_max=int(read[2])
 lux_max=int(read[1])
 co2_max=int(read[4])
@@ -82,6 +77,9 @@ def crop(pfad):
   img_region = img.crop(box)
   img_region.save(pfad+"Crop.png")
 
+
+def gettemp():
+        i=0
         while 1:
                 cmd="gatttool -b 54:6C:0E:4D:97:85 --char-write-req -a 0x0027 -n 01"
                 args = shlex.split(cmd)
@@ -163,7 +161,7 @@ def getbar():
                         outputgatt=outputgattby.decode("utf-8")
                         trash,raw_bar_byte=outputgatt.split(":")
                         raw_bar_str = (raw_bar_byte.split())
-                        raw_bar_data = int(('0x'+raw_bar_str[5])+(raw_bar_str[4])+raw_bar_str[3],1$
+                        raw_bar_data = int(('0x'+raw_bar_str[5])+(raw_bar_str[4])+raw_bar_str[3],16)
                         bar = raw_bar_data/100.0
                         if bar == 0:
                                 print("warning: no var from Ti")
@@ -214,34 +212,8 @@ def getlux():
                         print("TI is not or badly connected")
                         return-1
 
-def getbty():
-        i=0
-        while 1:
-                cmd="gatttool -b 54:6C:0E:4D:97:85 --char-read -a 0x001E"
-                args = shlex.split(cmd)
-                try:
-                        tryvar = subprocess.run(args, timeout=1)
-                        outputgattby=subprocess.check_output(args)
-                        outputgatt=outputgattby.decode("utf-8")
-                        trash,raw_bty_byte=outputgatt.split(":")
-                        raw_bty_str = (raw_bty_byte.split())
-                        raw_bty_data=('0x'+raw_bty_str[0])
-                        bty=int(raw_bty_data,16)
-                        if bty == 0:
-                                print("warning: no var from Ti")
-                                i=i+1
-                        else:
-                                return(bty)
-                except subprocess.TimeoutExpired:
-                        print("time out while getting data")
-                        i=i+3
-                if i>10:
-                        print("TI is not or badly connected")
-                        return-1
-
-
 def getco2():
-  url = 'http://10.2.254.22'
+  url = 'http://10.2.254.36'
   try:
     f = urllib.request.urlopen(url)
     arr=(f.read().decode('utf-8'))
@@ -315,18 +287,6 @@ def getco2sql():
       co2=row['co2']
       return  round(co2)
 
-def getbtysql():
-   connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
-   cur = connection.cursor()
-   str="SELECT (bty) FROM klima WHERE datum=curdate() ORDER BY Zeit DESC LIMIT 1"
-   cur.execute(str)
-   print(cur.description)
-   result_set = cur.fetchall()
-   for row in result_set:
-      cur.close()
-      connection.close()
-      return row['bty']
-      
 
 def drawTemp():
     x=gettempsql()
@@ -441,34 +401,6 @@ def drawLux():
     gauge.add('',[{'value': x, 'max_value': lux_max}])
     gauge.render_to_png('/home/pi/Klassenklima/png/LuxHalfGauge.png')
 
-def drawBat():
-    x=getbtysql()
-    batfarbr=[0, 0, 0]
-    x1=int((x/bat_max)*100)
-    for i in range(0,3,1):
-        batfarbr[i]=int(batfarbestart[i]+((batfarbeende[i]-batfarbestart[i])*(x1/100)))
-        print(batfarbr[i])
-    
-    
-    c=batfarbr[0]
-    for i in range(1,3,1):
-        c=c<<8
-        c+=batfarbr[i]
-    
-    print(c)
-    hexstring=hex(c)
-    print(hexstring)
-    splitstring=hexstring.split("x")
-    test=splitstring[1]
-    print(test)
-    farbe="#"+test
-    dark_lighten_style = LightenStyle(farbe)
-    gauge = pygal.SolidGauge(half_pie=True, inner_radius=0.40, style=dark_lighten_style)
-    percent_formatter = lambda x: '{:.10g} % Akku'.format(x)
-    gauge.value_formatter = percent_formatter
-    gauge.add('', [{'value': x, 'max_value': bat_max}])
-    gauge.render_to_png('/home/pi/Klassenklima/png/BatHalfGauge.png')
-
 def drawCo2():
     x=getco2sql()
     co2farbr=[0, 0, 0]
@@ -505,7 +437,7 @@ def pushtosql():
    bar=getbar()
    lux=getlux()
    co2=int(getco2())
-   byt=getbty()
+   byt=-1
    if(temp>-275 and hum>-1 and bar>800 and lux>-1 and byt>-1 and co2>-1):
       arg="INSERT INTO klima VALUES(null, "+str(temp)+", "+str(hum)+", "+str(bar)+", "+str(lux)+", "+str(co2)+", "+str(byt)+", "+"CURDATE()"+", "+"DATE_ADD(CURTIME(), INTERVAL 1 HOUR))"
       print(arg)
@@ -520,13 +452,11 @@ while 1:
     drawHumidity()
     drawBar()
     drawLux()
-    drawBat()
     drawCo2()
     crop("/home/pi/Klassenklima/png/TempHalfGauge")
     crop("/home/pi/Klassenklima/png/BarHalfGauge")
     crop("/home/pi/Klassenklima/png/HumHalfGauge")
     crop("/home/pi/Klassenklima/png/LuxHalfGauge")
-    crop("/home/pi/Klassenklima/png/BatHalfGauge")
     crop("/home/pi/Klassenklima/png/Co2HalfGauge")
     time.sleep(15)
 

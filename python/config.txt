@@ -14,7 +14,7 @@ luxfarbestart=255,0,0
 luxfarbeende=0,255,0
 barfarbestart=255,0,0
 barfarbeende=0,255,0
-batfarbestart=255,0,0
-batfarbeende=0,255,0
 co2farbestart=255,0,0
 co2farbeende=0,255,0
+config_Ip_MCU_NODE:
+http://10.2.254.36
