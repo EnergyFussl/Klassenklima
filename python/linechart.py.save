@@ -1,0 +1,35 @@
+import pygal
+from PIL import Image
+import cairosvg
+import shlex
+import subprocess
+import pymysql
+
+import time 
+from datetime import datetime, timedelta
+from pygal.style import LightenStyle
+arr=[0,1,2,3,4,5]
+
+def drawChart():
+    line_chart=pygal.Line()
+    line_chart.title='Temperatur'
+    line_chart.x_labels=map(lambda d: d.strftimelambda d: d.strftime('%H',gmtime())('%H',gmtime()),[
+        datetime(2,16,1),
+        datetime(2,16,2),
+        datetime(2,16,3),
+        datetime(2,16,4),
+        datetime(2,16,5),
+        datetime(2,16,6)
+    ])
+    line_chart.add("Temp",[arr[0],arr[1],arr[2],arr[3],arr[4],arr[5]])
+    line_chart.render_to_png('/home/pi/Klassenklima/png/TempChart.png')
+
+drawChart()
+
+
+
+
+
+
+
+

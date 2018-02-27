@@ -1,0 +1,75 @@
+<!DOCTYPE html> <html> <head>
+    <title>Test</title>
+    <style>#txt {font-size:40pt; margin-left:50%; margin-top:-15%;} </style>
+    <style>#txt2 {font-size:40pt; margin-left:50%; margin-top:1%;} </style>
+    <style>#bar {margin-left:0%; margin-top:5%;} </style>
+    <style>#lux {margin-right:0%; margin-bottom:0%;} </style>
+
+
+    <meta http-equiv="expires" content="0"> 
+    <meta http-equiv="pragma" content="no-cache"> 
+    <meta http-equiv="refresh" content="60">
+    <script>   
+    function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    var mo = today.getMonth();
+    var d = today.getDay();
+    var y = today.getFullYear();
+    m = checkTime(m);
+    s = checkTime(s);
+	mo=mo+1;
+	d=1;
+    mo = checkTime(mo);
+    d = checkTime(d);
+    document.getElementById('txt').innerHTML =
+    h + ":" + m + ":" + s;
+    document.getElementById('txt2').innerHTML =
+    d + "." + mo + "." + y;
+    var t = setTimeout(startTime, 500);
+}
+   function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+
+</script>
+</head>
+<body onload="startTime()">
+
+    <img id="temp"src="/png/TempHalfGaugeCrop.png?" height="40%" width="48%">
+    <img id="hum" src="/png/HumHalfGaugeCrop.png?" height="40%" width="48%">
+    <img id="co2" src="/png/Co2HalfGaugeCrop.png?" height="40%" width="48%">
+ <div id="txt">
+    </div>
+    <div  id="txt2">
+    </div>
+
+    <img id="bar" src="/png/BarHalfGaugeCrop.png?" height="40%" width="48%">
+    <img id="lux" src="/png/LuxHalfGaugeCrop.png?" height="40%" width="48%">
+
+    <script type="text/javascript">
+    var myVar = setInterval(function() {
+        console.log("xyz")
+        document.getElementById("temp").src="/png/TempChart.png?" + new Date().getTime();
+        document.getElementById("hum").src="/png/HumHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("bat").src="/png/Co2HalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("bar").src="/png/BarHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("lux").src="/png/LuxHalfGaugeCrop.png?" + new Date().getTime();
+    }, 10000);
+
+    var myVar2 = setInterval(function() {
+        console.log("xyz")
+        document.getElementById("temp").src="/png/TempHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("hum").src="/png/HumHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("bat").src="/png/Co2HalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("bar").src="/png/BarHalfGaugeCrop.png?" + new Date().getTime();
+        document.getElementById("lux").src="/png/LuxHalfGaugeCrop.png?" + new Date().getTime();
+    }, 20000);
+       
+        
+    </script>
+</body>
+</html>

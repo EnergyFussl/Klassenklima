@@ -1,0 +1,19 @@
+import pymysql
+import datetime
+
+def gettempsql():
+   connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
+   cur = connection.cursor()
+   i=0
+   while i<24:
+      str="SELECT * FROM klima WHERE datum BETWEEN '2017-11-20 00:00' AND '2017-11-21 23:59:59' AND zeit BETWEEN '15:00' AND '16:00'"
+      cur.execute(str)
+      print(cur.description)
+      result_set = cur.fetchall()
+      print(i)
+      i+=1
+      for row in result_set:
+         print('teest')
+         print(row['temp'])
+
+gettempsql()
