@@ -13,12 +13,12 @@ def getavgsql(wert):
    connection = pymysql.connect(host='localhost',user='sensoren',password='klassenklima',db='sensoren',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
    cur = connection.cursor()
    i=0
-   #y='{:%Y}'.format(datetime.datetime.now())
-   #m='{:%m}'.format(datetime.datetime.now())
-   #d='{:%d}'.format(datetime.datetime.now())
-   y='2018'
-   m='02'
-   d='27'
+   y='{:%Y}'.format(datetime.datetime.now())
+   m='{:%m}'.format(datetime.datetime.now())
+   d='{:%d}'.format(datetime.datetime.now())
+  # y='2018'
+ #  m='02'
+#   d='27'
 
    while i<24:
       cmdstr="SELECT * FROM klima WHERE datum BETWEEN \""+y+"-"+m+"-"+d+" 00:00\" AND \""+y+"-"+m+"-"+d+" 23:59\" AND zeit BETWEEN \""+str(i)+":00\" AND \""+str(i)+":59\""

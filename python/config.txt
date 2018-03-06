@@ -17,4 +17,4 @@ barfarbeende=0,255,0
 co2farbestart=255,0,0
 co2farbeende=0,255,0
 config_Ip_MCU_NODE:
-http://10.2.254.36
+http://10.2.254.14
