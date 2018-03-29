@@ -16,3 +16,5 @@ sudo apt-get install git
 sudo pip3 install pygal
 sudo pip3 install cairosvg
 sudo pip3 install plotly
+rm -fr install-requirements.sh
+cd
