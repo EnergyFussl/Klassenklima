@@ -12,3 +12,7 @@ cd bluez-5.32
 make
 make install
 sudo apt-get install python3-pymysql -y
+sudo apt-get install git
+sudo pip3 install pygal
+sudo pip3 install cairosvg
+sudo pip3 install plotly
