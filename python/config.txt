@@ -3,7 +3,7 @@ temp_gauge=35
 lux_gauge=2000
 bar_gauge=1500
 hum_gauge=100
-co2_gauge=2000
+co2_gauge=20000
 bat_gauge=100
 config_gaugen_farbe_start_ende:
 tempfarbestart=255,0,0
@@ -17,4 +17,4 @@ barfarbeende=0,255,0
 co2farbestart=255,0,0
 co2farbeende=0,255,0
 config_Ip_MCU_NODE:
-http://10.2.254.14
+http://192.168.0.21
