@@ -1,4 +1,4 @@
-apt-get update && apt-get install sudo nano python python3 -y
+apt-get update && apt-get install sudo nano screen python python3 -y
 sudo apt-get install libglib2.0-0 libglib2.0-dev -y
 sudo apt-get install libdbus-1-dev -y
 sudo apt-get install libudev-dev -y
